@@ -1,0 +1,14 @@
+22c22
+< 
+---
+> scriptdir=os.path.dirname(os.path.realpath(__file__))
+59,62c59,62
+< if (mthd == 'Energy' and ordr == 2): os.system('ElaStic_Result_Energy_2nd')
+< if (mthd == 'Energy' and ordr == 3): os.system('ElaStic_Result_Energy_3rd')
+< if (mthd == 'Stress' and ordr == 2): os.system('ElaStic_Result_Stress_2nd')
+< if (mthd == 'Stress' and ordr == 3): os.system('ElaStic_Result_Stress_3rd')
+---
+> if (mthd == 'Energy' and ordr == 2): os.system('%s/ElaStic_Result_Energy_2nd' % scriptdir)
+> if (mthd == 'Energy' and ordr == 3): os.system('%s/ElaStic_Result_Energy_3rd' % scriptdir)
+> if (mthd == 'Stress' and ordr == 2): os.system('%s/ElaStic_Result_Stress_2nd' % scriptdir)
+> if (mthd == 'Stress' and ordr == 3): os.system('%s/ElaStic_Result_Stress_3rd' % scriptdir)
