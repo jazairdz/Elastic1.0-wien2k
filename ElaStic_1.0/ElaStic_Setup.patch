@@ -1,0 +1,10 @@
+22a23
+> scriptdir=os.path.dirname(os.path.realpath(__file__))
+47,49c48,50
+< if (cod == 'exciting'): os.system('ElaStic_Setup_exciting')
+< if (cod == 'WIEN2k'  ): os.system('ElaStic_Setup_WIEN2k'  )
+< if (cod == 'ESPRESSO'): os.system('ElaStic_Setup_ESPRESSO')
+---
+> if (cod == 'exciting'): os.system('%s/ElaStic_Setup_exciting' % scriptdir)
+> if (cod == 'WIEN2k'  ): os.system('%s/ElaStic_Setup_WIEN2k'  % scriptdir)
+> if (cod == 'ESPRESSO'): os.system('%s/ElaStic_Setup_ESPRESSO' % scriptdir)
