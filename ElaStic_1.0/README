@@ -212,7 +212,7 @@ $ $ElaSticROOT/ElaStic_Result
 
 See the description later in this document for ElaStic_Result.patch.
 
-Calculated values below are from ElaStic_2nd.out.
+Calculated values below are from ElaStic_2nd.out (using WIEN2k 14.2 with patches [ https://github.com/gsabo/WIEN2k-Patches/tree/master/14.2 ] ).
 
 Parameter | Calculated (GPa) | Experimental (GPa)
 C11       | 1099.5           | 1076
