@@ -1,0 +1,10 @@
+22c22
+< 
+---
+> scriptdir=os.path.dirname(os.path.realpath(__file__))
+48,49c48,49
+< if (mthd == 'Energy'): os.system('ElaStic_Analyze_Energy')
+< if (mthd == 'Stress'): os.system('ElaStic_Analyze_Stress')
+---
+> if (mthd == 'Energy'): os.system('%s/ElaStic_Analyze_Energy' % scriptdir)
+> if (mthd == 'Stress'): os.system('%s/ElaStic_Analyze_Stress' % scriptdir)
