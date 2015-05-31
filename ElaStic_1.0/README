@@ -1,0 +1,239 @@
+How to install ElaStic 1.0 for WIEN2k
+-------------------------------------
+
+1. In a terminal, change to the home directory:
+$ cd ~
+
+($ means a bash shell in a terminal)
+
+2. Download the ElaStic 1.0 package from the Exciting website [ http://exciting-code.org/elastic ]:
+$ wget http://exciting.wdfiles.com/local--files/elastic/ElaStic_1.0.tar.gz
+
+3. Extract the ElaStic package:
+$ tar xzvf ElaStic_1.0.tar.gz
+
+4. Export the location of ElaStic as ElaSticROOT in .bashrc:
+$ gedit ~/.bashrc
+
+At the end of the .bashrc file, add the following line (where "username" should be replaced by your account name):
+
+export ElaSticROOT=/home/username/ElaStic_1.0
+
+then save the changes to .bashrc.
+
+5. Reload the .bashrc settings:
+$ source ~/.bashrc
+
+6. Enter:
+$ ls -l $ElaSticROOT/README
+
+If successful, it will list the ElaStic README file:
+
+-rw------- 1 username username 7297 May 22  2013 /home/username/ElaStic_1.0/README
+
+Note: The installation of adon_v1_0.tar.gz can be skipped, because WIEN2k uses its own sgroup.
+
+Reference: README in ElaStic_1.0.tar.gz
+
+Example with Diamond (Draft)
+--------------------
+
+Refer to the ElaStic@exciting tutorial at http://exciting-code.org/beryllium-elastic
+
+**How to setup an ElaStic 1.0 calculation for WIEN2k**
+
+1. Create a new directory for Diamond:
+$ mkdir C_2nd
+
+2. Changed into the Diamond directory:
+$ cd C_2nd
+
+3. Create the struct file for Diamond (e.g., with WIEN2k's StructGen) or place C_2nd.struct into the Diamond directory:
+$ ls
+C_2nd.struct
+
+4. Generate the input files for distorted structures by running:
+$ $ElaSticROOT/ElaStic_Setup
+
+See the description later in this document for ElaStic_Setup.patch.
+
+     Which DFT code would you like to apply for the calculations? 
+     exciting  ---------=>  1                                     
+     WIEN2k    ---------=>  2                                     
+     Quantum ESPRESSO --=>  3
+>>>> Please choose (1, 2, or 3): 2
+
+     Energy  ---=>  1           
+     Stress  ---=>  2    
+>>>> Please choose the method of the calculation (choose 1 or 2): 1
+
+     2nd  ---=>  2           
+     3rd  ---=>  3    
+>>>> Please choose the order of the elastic constant (choose 2 or 3): 2
+0.0u 0.0s 0:00.00 0.0% 0+0k 0+8io 0pf+0w
+
+     Number and name of space group: 227 (F d -3 m) [origin choice 2]       
+     Cubic I structure in the Laue classification.       
+     This structure has 3 independent second-order elastic constants.
+
+>>>> Please enter the maximum Lagrangian strain 
+     The suggested value is between 0.030 and 0.150: 0.05
+     The maximum Lagrangian strain is 0.05
+
+>>>> Please enter the number of the distorted structures [odd number > 4]: 11
+     The number of the distorted structures is 11
+
+5. Lists the new directories and files that the script ElaStic_Setup has generated:
+$ ls
+C_2nd.struct  Distorted_Parameters  Dst01  Dst02  Dst03  INFO_ElaStic  Structures_WIEN2k
+
+6. Lists the contents of the subdirectory Dst01 that ElaStic_Setup has generated:
+gavin@ubuntucomp:~/wiendata/C_2nd$ ls Dst01
+Dst01_01  Dst01_02  Dst01_03  Dst01_04  Dst01_05  Dst01_06  Dst01_07  Dst01_08  Dst01_09  Dst01_10  Dst01_11
+
+7. Change into Dst01
+$ cd Dst01
+
+8. Initialize Dst01:
+$ $ElaSticROOT/ElaStic_WIEN2k_init
+
+If needed, edit the script ElaStic_WIEN2k_init before running it. For additional details, refer to the README in $ElaSticROOT.
+
+If error "ElaStic_WIEN2k_init: line 23: WIEN2k_init_lapw_silent: command not found" occurs, open ElaStic_WIEN2k_init:
+$ gedit $ElaSticROOT/ElaStic_WIEN2k_init
+
+and add $ElaSticROOT/ in front of WIEN2k_init_lapw_silent:
+
+    $ElaSticROOT/WIEN2k_init_lapw_silent -b -vxc 13  -ecut -10.0  -in1_rkmax 8.0  -in2_method GAUSS  -in2_gmax 14  -in2_smear 0.01  -mix 0.1  -kgen_numk 2500  -kgen_shift 0  -inM_method PORT  -inM_tolf 0.1
+
+ElaStic_WIEN2k_init performs an automatic batch initialization of Dst01_01, Dst01_02, ..., Dst01_10, and Dst01_11.
+
+Alternatively, they could be initialized manually; for example, for Dst01_01:
+
+$ cd ..
+$ cd Dst01_01
+$ $ElaSticROOT/WIEN2k_init_lapw_silent
+
+9. Repeat 7 and 8 for the other Dst directories
+
+Dst02:
+$ cd ..
+$ cd Dst02
+$ $ElaSticROOT/ElaStic_WIEN2k_init
+
+Dst03:
+
+$ cd ..
+$ cd Dst03
+$ $ElaSticROOT/ElaStic_WIEN2k_init
+$ cd ..
+
+**How to execute an ElaStic 1.0 calculation for WIEN2k**
+
+10. Change into Dst01/Dst01_01
+$ cd ./Dst01/Dst01_01
+
+11. Run the calculation for Dst01/Dst01_01
+$ run_lapw
+
+12. Repeat 10 and 11 for Dst01_02, Dst01_03, ..., Dst01_10, and Dst01_11. Also, repeat for Dst01 and Dst02.
+
+Alternatively, use a modified version of the ElaStic@exciting-submit.sh script:
+
+a) In a terminal, change to the home directory:
+$ cd ~
+
+b) Download Exciting boron from the Exciting website [ http://exciting-code.org/boron ]:
+$ wget http://exciting.wdfiles.com/local--files/boron/exciting.boron.tar.gz
+
+c) Extract the Exciting boron package:
+$ tar xzvf exciting.boron.tar.gz
+
+d) Create a copy of ElaStic@exciting-submit.sh called ElaStic_submit_WIEN2k.sh:
+$ cp ~/exciting/tools/ElaStic@exciting-submit.sh ~/ElaStic_1.0/ElaStic_submit_WIEN2k.sh
+
+e) Edit ElaStic_submit_WIEN2k.sh
+$ gedit $ElaSticROOT/ElaStic_submit_WIEN2k.sh
+
+There should be a line in the file that looks like:
+
+EXECUTABLE=$EXCITINGROOT/bin/excitingser
+
+Replace "$EXCITINGROOT/bin/excitingser" with the WIEN2k command that you want to use for the calculation.
+
+For example, change it to:
+
+EXECUTABLE="run_lapw"
+
+The line copying xml files is not needed for WIEN2k and can be changed into a comment line by putting a pound sign (#) in front of it:
+
+# cp -f $Dstn_num.xml input.xml
+
+Steps 10, 11, 12 can then be replaced by the following:
+
+f) Change into the C_2nd directory (replace "path-to" to where C_2nd is located on your system):
+$ cd path-to/C_2nd
+
+g) Run the calculations with:
+
+$ $ElaSticROOT/ElaStic_submit_WIEN2k.sh
+
+**How to analyze an ElaStic 1.0 calculation for WIEN2k**
+
+1. Create converged calculation files needed from analysis:
+$ $ElaSticROOT/ElaStic_Save_Clean_WIEN2k
+
+2. Execute the analyze script
+$ $ElaSticROOT/ElaStic_Analyze
+
+See the description later in this document for ElaStic_Analyze.patch.
+
+Output files Dst01_d2E.agr, Dst01_CVe.agr, Dst02_d2E.agr, Dst02_CVe.agr, Dst03_d2E.agr, and Dst03_CVe.agr.
+
+3. Edit ElaStic_2nd.in
+$ gedit ElaStic_2nd.in
+
+Change
+
+Dst01     eta_max     Fit_order
+Dst02     eta_max     Fit_order
+Dst03     eta_max     Fit_order
+
+to
+
+Dst01     0.05     6
+Dst02     0.05     6
+Dst03     0.05     6
+
+then save the changes.
+
+4. Calculate the elastic constants and moduli
+$ $ElaSticROOT/ElaStic_Result
+
+See the description later in this document for ElaStic_Result.patch.
+
+Calculated values below are from ElaStic_2nd.out.
+
+Parameter | Calculated (GPa) | Experimental (GPa)
+C11       | 1099.5           | 1076
+C12       | 131.8            | 125
+C44       | 589.8            | 577
+B0        | 454.35           | 452
+
+Patches for ElaStic 1.0 for WIEN2k
+-----------------------
+
+- Place ElaStic_Analyze.patch into $ElaSticROOT
+- Apply the patch with: patch -b ElaStic_Analyze ElaStic_Analyze.patch
+Description: Patch to remove the error "sh: 1: ElaStic_Analyze_Energy: not found" 
+when it occurs during the running of $ElaSticROOT/ElaStic_Analyze.
+
+- Place ElaStic_Result.patch into $ElaSticROOT
+- Apply the patch with: patch -b ElaStic_Result ElaStic_Result.patch
+Description: Patch to remove the error "sh: 1: ElaStic_Result_Energy_2nd: not found" 
+when it occurs during the running of $ElaSticROOT/ElaStic_Result.
+
+- Place ElaStic_Setup.patch into $ElaSticROOT
+- Apply the patch with: patch -b ElaStic_Setup ElaStic_Setup.patch
+Description: Patch to remove the error "sh: 1: ElaStic_Setup_WIEN2k: not found" 
+when it occurs during the running of $ElaSticROOT/ElaStic_Setup.
