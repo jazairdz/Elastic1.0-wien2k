@@ -1,0 +1,72 @@
+    The output of ElaStic code                                              
+    Today is Sun May 31 09:03:30 2015
+
+    Symmetry of the second-order elastic constant matrix in Voigt notation. 
+    for, space group-number between 207 and 230, Cubic I structure.        
+
+               C11     C12     C12      0       0       0                  
+               C12     C11     C12      0       0       0                  
+               C12     C12     C11      0       0       0                  
+                0       0       0      C44      0       0                  
+                0       0       0       0      C44      0                  
+                0       0       0       0       0      C44                 
+
+    Elastic constant (stiffness) matrix in GPa:                             
+
+      1099.5       131.8       131.8         0.0         0.0         0.0
+       131.8      1099.5       131.8         0.0         0.0         0.0
+       131.8       131.8      1099.5         0.0         0.0         0.0
+         0.0         0.0         0.0       589.8         0.0         0.0
+         0.0         0.0         0.0         0.0       589.8         0.0
+         0.0         0.0         0.0         0.0         0.0       589.8
+
+
+    Elastic compliance matrix in 1/GPa: 
+
+     0.00093    -0.00010    -0.00010     0.00000     0.00000     0.00000
+    -0.00010     0.00093    -0.00010     0.00000     0.00000     0.00000
+    -0.00010    -0.00010     0.00093     0.00000     0.00000     0.00000
+     0.00000     0.00000     0.00000     0.00170     0.00000     0.00000
+     0.00000     0.00000     0.00000     0.00000     0.00170     0.00000
+     0.00000     0.00000     0.00000     0.00000     0.00000     0.00170
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    Voigt bulk  modulus, B_V =   454.35  GPa
+    Voigt shear modulus, G_V =   547.41  GPa
+
+    Reuss bulk  modulus, B_R =   454.35  GPa
+    Reuss shear modulus, G_R =   542.29  GPa
+
+    Hill bulk  modulus,  B_H =   454.35  GPa
+    Hill shear modulus,  G_H =   544.85  GPa
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    Voigt Young modulus,  E_V =  1171.68  GPa
+    Voigt Poisson ratio, nu_V =     0.07
+
+    Reuss Young modulus,  E_R =  1163.84  GPa
+    Reuss Poisson ratio, nu_R =     0.07
+
+    Hill Young modulus,   E_H =  1167.77  GPa
+    Hill Poisson ratio,  nu_H =     0.07
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    Elastic Anisotropy in polycrystalline, AVR =    0.470 %
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    Eigenvalues of elastic constant (stiffness) matrix:   
+
+           967.7
+          1363.1
+           967.7
+           589.8
+           589.8
+           589.8
+
+    ... Have a G00D Day, Week, Month, Year, and Century (if you are lucky) ...    
+               Bye-Bye! Tschuess! Ciao! Poka! Zia Jian! KhodaHafez!             
+
