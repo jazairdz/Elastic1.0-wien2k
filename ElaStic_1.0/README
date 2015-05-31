@@ -136,7 +136,7 @@ $ cd ./Dst01/Dst01_01
 11. Run the calculation for Dst01/Dst01_01
 $ run_lapw
 
-12. Repeat 10 and 11 for Dst01_02, Dst01_03, ..., Dst01_10, and Dst01_11. Also, repeat for Dst01 and Dst02.
+12. Repeat 10 and 11 for Dst01_02, Dst01_03, ..., Dst01_10, and Dst01_11. Also, repeat for Dst02 and Dst03.
 
 Alternatively, use a modified version of the ElaStic@exciting-submit.sh script:
 
