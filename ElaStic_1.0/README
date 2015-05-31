@@ -221,7 +221,7 @@ C44       | 589.8            | 577
 B0        | 454.35           | 452
 
 Patches for ElaStic 1.0 for WIEN2k
------------------------
+----------------------------------
 
 - Place ElaStic_Analyze.patch into $ElaSticROOT
 - Apply the patch with: patch -b ElaStic_Analyze ElaStic_Analyze.patch
